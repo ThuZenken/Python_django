@@ -61,8 +61,12 @@ def vote(request, question_id):
 
 def export(request):
     filepath = './001Before.txt'
+    # f = open("./001Before.txt", "r", encoding="utf-8")
     filepath_new = './001After.txt'
     new_file = open(filepath_new, 'w', encoding="utf-8")
+    # content = f.read()
+    # content = re.sub(
+    #     r"^(☆merg☆∋)([^〒]*)〒(.*)∈([^〒]*)〒(.*)", "\\1\\3〒∈🌊\\5", content)
     with open(filepath, encoding="utf8") as fp:
         line = fp.readline()
         while line:
@@ -97,10 +101,9 @@ def export(request):
                                   "\\1\\3●○○●[効能効果12:\\2]●=>●\\4🌊", result13)
                 result15 = re.sub(r"(☆merg☆∋)([^〒]*)〒([^🌊]*)🌊([^〒]*)〒",
                                   "\\1\\3●○○●[効能効果13:\\2]●=>●\\4🌊", result14)
-                result16 = re.sub(
-                    r"(☆merg☆∋)([^🌊]*)🌊([^\n]*)", "\\1\\2", result15)
                 line = re.sub(
-                    r"🌊\n", "〒〒🌊\n", result15)
+                    r"(☆merg☆∋)([^🌊]*)🌊([^\n]*)", "\\1\\2", result15)
+
             if "☆repm☆" in line:
                 result = re.sub(
                     r"^(☆repm☆∋)([^〒]*)〒(.*)∈([^〒]*)〒(.*)", "\\1\\3〒∈🌊\\5", line)
@@ -148,17 +151,17 @@ def export(request):
                 result22 = re.sub(
                     r"(☆repm☆∋)([^〒]*)〒([^🌊]*)🌊([^〒]*)〒", "\\1\\3●○○●[効能効果21:\\2]●=>●\\4🌊\\4〒", result21)
                 # line = re.sub(r"🌊\n", "〒🌊\n", result22)
-                result23 = re.sub(
+                line = re.sub(
                     r"(☆repm☆∋)([^🌊]*)🌊([^\n]*)", "\\1\\2", result22)
-                line = re.sub(r"\n", "〒🌊\n", result23)
+                # line = re.sub(r"\n", "〒🌊\n", result23)
 
-            if "☆none☆" in line:
-                line = re.sub(r"\n", "〒〒〒🌊\n", line)
+            # if "☆none☆" in line:
+            #     line = re.sub(r"\n", "〒〒〒🌊\n", line)
 
             if "☆inli☆" in line:
                 result = re.sub(
                     r"(☆inli☆∋)([^〒]*)〒", "\\1🌊", line)
-                result1_0 = re.sub(r"$", "〒", result)
+                result1_0 = re.sub(r"\n", "〒\n", result)
                 result1 = re.sub(
                     r"(☆inli☆∋)🌊([^〒]*)〒([^〒]*)〒", "\\1●○○●[効能効果1:\\2]●=>●\\3🌊", result1_0)
                 result2 = re.sub(
@@ -215,10 +218,12 @@ def export(request):
                     r"([^🌊]*)🌊([^〒]*)〒([^〒]*)〒", "\\1●○○●[効能効果27:\\2]●=>●\\3🌊", result26)
                 result28 = re.sub(
                     r"([^🌊]*)🌊([^〒]*)〒([^〒]*)〒", "\\1●○○●[効能効果28:\\2]●=>●\\3🌊", result27)
-                result29 = re.sub(
-                    r"([^🌊]*)🌊([^〒]*)〒([^〒]*)〒", "\\1●○○●[効能効果29:\\2]●=>●\\3🌊", result28)
                 line = re.sub(
-                    r"🌊\n〒", "\n", result29)
+                    r"([^🌊]*)🌊([^〒]*)〒([^〒]*)〒", "\\1●○○●[効能効果29:\\2]●=>●\\3🌊", result28)
+
+            #result_001 = re.sub(r"●○○●\\d+:[効能効果\\d+:]〒$", "",line)
+            # result_text = re.sub(r"●○○●\\d+:[効能効果\\d+:]〒$", "", line)
+
             result_01 = re.sub(
                 r"([」』])[♫🎶♩♪♬🎼「」『』♂∋∈]*([「『])", "\\1、\\2", line)
             result_02 = re.sub(r"(場合)([」』<])", "\\1:\\2", result_01)
